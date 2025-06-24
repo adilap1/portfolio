@@ -1,0 +1,44 @@
+[
+    {
+        "nama": "Reksa Dana Pasar Uang",
+        "jenis": "Reksa Dana",
+        "bucket": "Dana Darurat",
+        "nilai": 28000000
+    },
+    {
+        "nama": "Saham BBCA",
+        "jenis": "Saham",
+        "bucket": "Investasi",
+        "nilai": 5000000
+    },
+    {
+        "nama": "Tabungan Mantap",
+        "jenis": "Tabungan",
+        "bucket": "Cash",
+        "nilai": 15000000
+    },
+    {
+        "nama": "Bitcoin",
+        "jenis": "Kripto",
+        "bucket": "Investasi",
+        "nilai": 7100000
+    },
+    {
+        "nama": "Saham TLKM",
+        "jenis": "Saham",
+        "bucket": "Investasi",
+        "nilai": 400000
+    },
+    {
+        "nama": "Tabungan Mandiri",
+        "jenis": "Tabungan",
+        "bucket": "Cash",
+        "nilai": 1800000
+    },
+    {
+        "nama": "Tabungan Mobil",
+        "jenis": "Saham",
+        "bucket": "Lainnya",
+        "nilai": 500000
+    }
+]
