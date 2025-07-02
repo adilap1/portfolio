@@ -12,7 +12,7 @@ def load_portfolio():
 portfolio = load_portfolio()
 total_nilai = sum(item["nilai"] for item in portfolio)
 
-# Auto-refresh setiap 1 menit (60000 ms)
+# Auto-refresh setiap 30 detik (30000 ms)
 from streamlit_autorefresh import st_autorefresh
 
 auto_refresh = st.sidebar.checkbox("🔁 Aktifkan Auto-refresh", value=True)
@@ -60,8 +60,9 @@ def format_rupiah_singkat(nominal):
         return f"{nominal/1_000:.1f} rb"
     else:
         return f"{nominal}"
-    
-st.subheader("📊 Visualisasi per Bucket (Interaktif)")
+
+# Visualisasi per Bucket    
+st.subheader("📊 Visualisasi per Bucket")
 
 warna_bucket = {
     "Dana Darurat": "#003f5c",   # Biru Tua
@@ -92,8 +93,21 @@ fig_bucket.update_traces(
 
 st.plotly_chart(fig_bucket, use_container_width=True)
 
+# Visualisasi per Jenis  
+st.subheader("📊 Visualisasi per Jenis")
 
-st.subheader("📊 Visualisasi per Jenis (Interaktif)")
+warna_jenis = {
+    "Saham Indo": "#45ADE1",   # Biru Muda
+    "Saham US": "#df5f03",      # Orange
+    "Reksa Dana": "#18da02",    # Hijau Muda
+    "Tabungan": "#49065d",   # Ungu
+    "Kripto": "#d40202",         # Merah
+    "Obligasi": "#084615",   # Hijau Tua
+    "Deposito": "#23f6e4",         # Cyan
+    "Tabungan Berjangka": "#003f5c",   # Biru Tua
+    "Emas": "#b6d81d",         # Kuning
+    "Lainnya": "#bb21c9"         # Pink
+}
 
 jenis_data = df.groupby("jenis")["nilai"].sum().reset_index()
 jenis_data["label"] = jenis_data["nilai"].apply(format_rupiah_singkat)
@@ -104,13 +118,38 @@ fig_jenis = px.pie(
     values="nilai",
     hover_data=["label"],
     title="Distribusi Aset Berdasarkan Jenis",
-    hole=0.4
+    hole=0.4,
+    color="jenis",
+    color_discrete_map=warna_jenis
 )
 
 fig_jenis.update_traces(textinfo="label+percent", hovertemplate='%{label} (%{percent})<br>Total: Rp %{value:,}')
 
 st.plotly_chart(fig_jenis, use_container_width=True)
 
+# Visualisasi hanya untuk Investasi
+st.subheader("📊 Rincian Aset Investasi")
+
+# Filter data untuk bucket "Investasi"
+df_investasi = df[df["bucket"] == "Investasi"]
+
+# Cek jika ada data investasi untuk divisualisasikan
+if df_investasi.empty:
+    st.info("ℹ️ Tidak ada aset dalam bucket 'Investasi' untuk ditampilkan.")
+else:
+    # Buat pie chart untuk rincian aset investasi
+    fig_investasi = px.pie(
+        df_investasi,
+        names="nama",
+        values="nilai",
+        title="Distribusi Aset dalam Bucket Investasi",
+        hole=0.4
+    )
+    fig_investasi.update_traces(
+        textinfo="percent+label",
+        hovertemplate='%{label}: Rp %{value:,.0f} (%{percent})<extra></extra>'
+    )
+    st.plotly_chart(fig_investasi, use_container_width=True)
 
 # ======= Tambahkan sidebar kelola aset=======
 
