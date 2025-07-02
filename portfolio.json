@@ -7,7 +7,7 @@
     },
     {
         "nama": "Saham BBCA",
-        "jenis": "Saham",
+        "jenis": "Saham Indo",
         "bucket": "Investasi",
         "nilai": 5000000
     },
@@ -25,7 +25,7 @@
     },
     {
         "nama": "Saham TLKM",
-        "jenis": "Saham",
+        "jenis": "Saham Indo",
         "bucket": "Investasi",
         "nilai": 400000
     },
@@ -37,7 +37,7 @@
     },
     {
         "nama": "Tabungan Mobil",
-        "jenis": "Saham",
+        "jenis": "Saham US",
         "bucket": "Lainnya",
         "nilai": 500000
     }
